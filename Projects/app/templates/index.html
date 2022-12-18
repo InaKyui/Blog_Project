@@ -1,11 +1,22 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{{title}} - Blog</title>
-    </head>
-    <body>
-        <div>Blog: <a href="/index">Home</a></div>
-        <h1>Hello, {{user.username}}</h1>
-    </body>
+  <head>
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Blog</title>
+    {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="info">
+        <div id="info-content">
+          <h1><strong>{{user["username"]}}</strong>雨 衣</h1>
+          <a href="contents">
+            <h2>Contents</h2>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for content in contents %}
+<a href="{{ url_for('content', content_id=content['id']) }}">
+    <h2>{{ content["title"] }}</h2>
+</a>
+<span>{{ content["created"] }}</span>
+<a href="{{ url_for('edit_content', content_id=content['id']) }}">
+    <span>Edit</span>
+</a>
+{% endfor%}
+{% endblock %}

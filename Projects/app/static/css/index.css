@@ -24,7 +24,7 @@
   }
 
   body {
-    background: url("images/background.png") 50% 50%/cover;
+    background: url("../images/background.png") 50% 50%/cover;
   }
 
   p {

@@ -1,12 +1,12 @@
 <html>
   <head>
     {% if title %}
-    <title>{{ title }} - 雪忆</title>
+    <title>{{ title }}</title>
     {% else %}
-    <title>雪忆</title>
+    <title>Blog</title>
     {% endif %}
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/content.css') }}">
 </head>
 <body>
 <header class="header">
@@ -24,13 +24,13 @@
 <nav class="menu">
   <ul>
     <li>
-      <a href="#">Home</a>
+      <a href="{{url_for('index')}}">Home</a>
     </li>
     <li>
-      <a href="#">Archive</a>
+      <a href="{{url_for('contents')}}">Archive</a>
     </li>
     <li>
-      <a href="#">About me</a>
+      <a href="{{url_for('add_content')}}">New</a>
     </li>
   </ul>
   </nav>
@@ -43,9 +43,11 @@
       <h2>Title</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       </div>
-
   </aside>
-    {% block content %}{% endblock %}
+  {% for message in get_flashed_messages() %}
+  <div class="alert alert-danger"> {{message}}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
 </div>
 </body>
 </html>

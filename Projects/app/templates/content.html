@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ content["title"] }}</h2>
+<span>{{ content["content"] }}</span>
+
+<hr>
+<form action="{{ url_for('delete_content', content_id=content['id']) }}" method="POST">
+    <input type="submit" value="delete" onclick="return confirm('delete?')">
+</form>
+{% endblock %}
