@@ -1,4 +1,4 @@
-SECRET_KEY = "inakyuiblog"
+SECRET_KEY = "inakyui_blog"
 
 # Database.
 HOSTNAME = "127.0.0.1"

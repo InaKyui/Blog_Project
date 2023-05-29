@@ -1,38 +1,61 @@
+#-*- encoding: utf-8 -*-
+#!/usr/bin/blog_venv python3.7
+"""
+[File]        : forms.py
+[Time]        : 2023/05/27 18:00:00
+[Author]      : InaKyui
+[License]     : (C)Copyright 2023, InaKyui
+[Version]     : 1.0
+[Description] : Form format.
+"""
+
+__authors__ = ["InaKyui <https://github.com/InaKyui>"]
+__version__ = "Version: 1.0"
+
 import wtforms
 from models import UserModel
 from extends import cache
-from wtforms.validators import Email, Length, EqualTo
+from wtforms.validators import Email, Length, EqualTo, InputRequired
 
-# Verify that the data submitted by the front-end meets the requirements.
 class RegisterForm(wtforms.Form):
-    # 格式验证。
-    email = wtforms.StringField(validators=[Email(message="邮箱格式错误！")])
-    captcha = wtforms.StringField(validators=[Length(min=4, max=4, message="验证码格式错误！")])
-    username = wtforms.StringField(validators=[Length(min=4, max=16, message="")])
-    password = wtforms.StringField(validators=[Length(min=6, max=16, message="")])
-    password_confirm = wtforms.StringField(validators=[EqualTo("password")])
+    # Define format.
+    email = wtforms.StringField(validators=[Email(message="Incorrect email format!")])
+    captcha = wtforms.StringField(validators=[Length(min=4, max=4, message="Incorrect captcha format!")])
+    username = wtforms.StringField(validators=[Length(min=4, max=16, message="Incorrect username format!")])
+    password = wtforms.StringField(validators=[Length(min=6, max=16, message="Incorrect password format!")])
+    password_confirm = wtforms.StringField(validators=[EqualTo("password", message="Inconsistent passwords twice!")])
 
-    # 自定义验证。
+    # Custom validation.
     def validate_email(self, filed):
         email = filed.data
         user = UserModel.query.filter_by(email=email).first()
         if user:
-            raise wtforms.ValidationError(message="改邮箱已经被注册")
+            raise wtforms.ValidationError(message="This email address has been registered!")
 
     def validate_captcha(self, filed):
         captcha = filed.data
         email = self.email.data
 
         try:
-            if not cache.get(email) == captcha:
-                raise wtforms.ValidationError(message="验证码错误")
-            else:
-                print(email)
+            if cache.get(email) != captcha:
+                raise wtforms.ValidationError(message="Incorrect captcha!")
         except:
-            raise wtforms.ValidationError(message="验证码错误")
+            raise wtforms.ValidationError(message="There are some errors in the email.")
+
 
 class LoginForm(wtforms.Form):
-    # 格式验证。
-    email = wtforms.StringField(validators=[Email(message="邮箱格式错误！")])
-    password = wtforms.StringField(validators=[Length(min=6, max=16, message="")])
+    # Define format.
+    email = wtforms.StringField(validators=[Email(message="Incorrect email format!")])
+    password = wtforms.StringField(validators=[Length(min=6, max=16, message="Incorrect password format!")])
 
+
+class ArticleForm(wtforms.Form):
+    # Define format.
+    title = wtforms.StringField(validators=[Length(min=1, max=36, message="Incorrect title format!")])
+    content = wtforms.StringField(validators=[Length(min=1, message="Incorrect content format!")])
+
+
+class CommentForm(wtforms.Form):
+    # Define format.
+    content = wtforms.StringField(validators=[Length(min=1, message="Incorrect content format!")])
+    article_id = wtforms.IntegerField(validators=[InputRequired()])

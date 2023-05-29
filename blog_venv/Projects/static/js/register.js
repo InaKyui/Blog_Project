@@ -1,4 +1,4 @@
-function bindEmailCaptcha(){
+function emailCaptcha(){
     $("#captcha-btn").click(function (event){
         var $this = $(this)
         event.preventDefault();
@@ -15,12 +15,12 @@ function bindEmailCaptcha(){
                     countdown -= 1;
                     if (countdown <= 0){
                         clearInterval(timer);
-                        $this.text("获取验证码");
+                        $this.text("Get captcha");
                     }
                 }, timeout=1000);
 }
         $.ajax({
-            url: "/auth/captcha/email?email=" + email,
+            url: "/auth/send_captcha?email=" + email,
             method: "GET",
         });
     });
@@ -28,5 +28,5 @@ function bindEmailCaptcha(){
 
 
 $(function (){
-    bindEmailCaptcha();
+    emailCaptcha();
 });

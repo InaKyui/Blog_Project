@@ -1,51 +1,90 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="author" content="InaKyui">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800|Roboto:400,500,700">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+        {% block head %}{% endblock %}
+        <title>{% block title %}{% endblock %}</title>
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.4.6.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/init.css') }}">
-    {% block head %}{% endblock %}
-    <title>{% block title %}{% endblock %}</title>
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">知了问答</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">首页 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">发布问答</a>
-                    </li>
-                    <li class="nav-item ml-2">
-                        <form class="form-inline my-2 my-lg-0" method="GET" action="#">
-                            <input class="form-control mr-sm-2" type="search" placeholder="关键字" aria-label="Search" name="q">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
-                        </form>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">登录</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">注册</a>
-                    </li>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark bg-dark py-4">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('index.homepage') }}"><strong>INAKYUI</strong> BLOG</a>
+                <button class="navbar-toggler" type="button" data-action="offcanvas-open" data-target="#navbar_main" aria-controls="navbar_main" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse offcanvas-collapse" id="navbar_main">
+                    <ul class="navbar-nav ml-auto align-items-lg-center">
+                        <h6 class="dropdown-header font-weight-600 d-lg-none px-0">Menu</h6>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index.homepage') }}">Homepage</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbar_main_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Article</a>
+                            <div class="dropdown-menu" aria-labelledby="navbar_1_dropdown_1">
+                                <a class="dropdown-item" href="{{ url_for('article.article') }}">Collection</a>
+                                <a class="dropdown-item" href="{{ url_for('article.new_article') }}">New</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbar_main_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                            <div class="dropdown-menu" aria-labelledby="navbar_1_dropdown_1">
+                                <a class="dropdown-item" href="{{ url_for('auth.login') }}">Login</a>
+                                <a class="dropdown-item" href="{{ url_for('auth.register') }}">Register</a>
+                                <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link nav-link-icon" href="https://github.com/InaKyui" target="_blank"><i class="fab fa-github"></i><span class="ml-2 d-lg-none">Github</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main class="main">
+            {% block main %}
+            {% endblock %}
+        </main>
+        <footer class="pt-5 pb-3 footer  footer-dark bg-tertiary">
+            <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                <div class="pr-lg-5">
+                    <h1 class="heading h6 text-uppercase font-weight-700 mb-3"><strong>InaKyui</strong> Blog</h1>
+                    <p>Personal blog.</p>
+                </div>
+                </div>
+            </div>
+            <hr>
+            <div class="d-flex align-items-center">
+                <span class="">
+                &copy; 2023 InaKyui. All rights reserved.
+                </span>
+                <ul class="nav ml-lg-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="https://github.com/InaKyui" target="_blank"><i class="fab fa-github"></i></a>
+                </li>
                 </ul>
             </div>
-        </div>
-    </nav>
-    <div class="container">
-        {% block body %}{% endblock %}
-    </div>
-</body>
+            </div>
+        </footer>
 
+        <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+        <script src="{{ url_for('static', filename='vendor/popper/popper.min.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js')}}"></script>
+        <!-- FontAwesome 5 -->
+        <script src="{{ url_for('static', filename='vendor/fontawesome/js/fontawesome-all.min.js')}}"></script>
+        <!-- Page plugins -->
+        <script src="{{ url_for('static', filename='vendor/bootstrap-select/js/bootstrap-select.min.js')}}"></script>
+        <script src="{{ url_for('static', filename='vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js')}}"></script>
+        <script src="{{ url_for('static', filename='vendor/input-mask/input-mask.min.js')}}"></script>
+        <script src="{{ url_for('static', filename='vendor/nouislider/js/nouislider.min.js')}}"></script>
+        <script src="{{ url_for('static', filename='vendor/textarea-autosize/textarea-autosize.min.js')}}"></script>
+        <!-- Theme JS -->
+        <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
+    </body>
 </html>

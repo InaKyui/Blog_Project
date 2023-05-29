@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Article - InaKyui BLOG{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/article.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/article_detail.css') }}">
+{% endblock %}
+
+{% block main %}
+<section class="spotlight parallax bg-cover bg-size--cover" style="background-image: url({{ url_for('static', filename='images/article_background.png') }}); background-size: 100%;">
+    <span class="mask bg-primary alpha-3"></span>
+    <div class="spotlight-holder py-lg pt-lg-xl">
+        <div class="container d-flex align-items-center no-padding">
+            <div class="col">
+                <div class="row cols-xs-space align-items-center text-center text-md-left justify-content-center">
+                    <div class="text-center mt-5">
+                    <img src="{{ url_for('static', filename='images/logo.png')}}" style="width: 200px;" class="img-fluid animated" data-animation-in="jackInTheBox" data-animation-delay="1000">
+                    <h2 class="heading display-4 font-weight-400 text-white mt-5 animated" data-animation-in="fadeInUp" data-animation-delay="2000">
+                        <span class="font-weight-700">Article</span>
+                    </h2>
+                    <p class="lead text-white mt-3 lh-180 c-white animated" data-animation-in="fadeInUp" data-animation-delay="2500">
+                        花は咲き、そして散る。星は輝き、いつか消える。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="row" style="margin-top: 20px;">
+        <div class="col"></div>
+        <div class="col-10" style="background-color: #fff;padding: 20px;">
+            <h3 class="page-title">{{article.title}}</h3>
+            <p class="article-info">
+                <span>{{article.name}}</span>
+                <span>{{article.create_time}}</span>
+            </p>
+            <hr>
+            <p class="article-content">{{article.content}}</p>
+            <hr>
+            <h4 class="comment-group-title">Comments({{article.comments | length}}):</h4>
+            <form action="{{ url_for('article.new_comment') }}" method="post">
+                <div class="form-group">
+                    <input type="text"  name="content" class="form-control" placeholder="Fill in the comment.">
+                    <input type="hidden" name="article_id" value="{{ article.id }}">
+                </div>
+                <div class="form-group" style="text-align: right;">
+                    <button class="btn btn-primary">Send</button>
+                </div>
+            </form>
+            <ul class="comment-group">
+                {% for comment in article.comments %}
+                <li>
+                    <div class="user-info">
+                        <img class="avatar" src="{{ url_for('static', filename='images/avatar.jpg')}}" alt="">
+                        <span class="username">{{ comment.author.user_name }}</span>
+                        <span class="create-time">{{ comment.create_time }}</span>
+                    </div>
+                    <p class="comment-content">{{ comment.content }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}

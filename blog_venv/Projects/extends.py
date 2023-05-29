@@ -1,12 +1,12 @@
 #-*- encoding: utf-8 -*-
-#!/usr/bin/pixiv_venv python3.7
+#!/usr/bin/blog_venv python3.7
 """
-[File]      : exts.py
-[Time]      : 2023/05/22 15:03:39
-[Author]    : InaKyui
-[License]   : (C)Copyright 2022, InaKyui
-[Version]   : 1.0
-[Description] : Description.
+[File]        : extends.py
+[Time]        : 2023/05/27 18:00:00
+[Author]      : InaKyui
+[License]     : (C)Copyright 2023, InaKyui
+[Version]     : 1.0
+[Description] : Basic Class.
 """
 
 __authors__ = ["InaKyui <https://github.com/InaKyui>"]
