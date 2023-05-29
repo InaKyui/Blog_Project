@@ -21,6 +21,11 @@
                     <ul class="navbar-nav ml-auto align-items-lg-center">
                         <h6 class="dropdown-header font-weight-600 d-lg-none px-0">Menu</h6>
                         <li class="nav-item">
+                            <form class="form-inline">
+                                <input class="form-control form-control-sm mr-sm-2" placeholder="Search" aria-label="Search" style="background-color: transparent; color: rgba(255,255,255,0.75)" id="search">
+                            </form>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('index.homepage') }}">Homepage</a>
                         </li>
                         <li class="nav-item dropdown">
@@ -33,9 +38,12 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbar_main_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
                             <div class="dropdown-menu" aria-labelledby="navbar_1_dropdown_1">
+                                {% if g.user == None %}
                                 <a class="dropdown-item" href="{{ url_for('auth.login') }}">Login</a>
                                 <a class="dropdown-item" href="{{ url_for('auth.register') }}">Register</a>
+                                {% else %}
                                 <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a>
+                                {% endif %}
                             </div>
                         </li>
                         <li class="nav-item">
@@ -86,5 +94,6 @@
         <script src="{{ url_for('static', filename='vendor/textarea-autosize/textarea-autosize.min.js')}}"></script>
         <!-- Theme JS -->
         <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/search.js') }}"></script>
     </body>
 </html>
